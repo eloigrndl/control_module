@@ -1,2 +1,16 @@
 # PDS
 Bachelor Semester Project Git repository, EPFL 2020-2021
+
+Welcome to th git Repository.
+
+The project consists in the implementation on control algorithm. We first implement it for a Loomo robot (2-wheel robot)
+and then this algorithm should be adapted to be use as the control alogorithm of the Driverless car of the EPFL Racing Team.
+
+Source files are separated in two folders, one implementing each model. They are quite similar as the overall structure of each is the same but the kinematic/dynamic equations change for each model.
+
+I also provided a visualization tool that simulates each of the model on the given model.
+Small real tests footage is also available.
+
+Note 17/12/2020 :
+- visualization tool isn't done yet, plan to add more information to screen
+- car model still needs small adjustement (but the real value that will be used on the RT car will be calculated using IRL tests)

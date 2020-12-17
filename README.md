@@ -10,5 +10,5 @@ I also provided a visualization tool that simulates each of the model on the giv
 Small real tests footage is also available.
 
 Note 17/12/2020 :
-- visualization tool isn't done yet, plan to add more information to screen
+- visualization tool isn't done yet, plan to display more information to screen
 - car model still needs small adjustement (but the real value that will be used on the RT car will be calculated using IRL tests)

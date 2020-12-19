@@ -8,7 +8,7 @@ import random
 class MPC_robot_model:
     
     # PARAMETERS FOR THE MPC MODEL
-    HORIZON_N = 10
+    HORIZON_N = 5
     #values corresponds to the specifications
     break_max = -3
     acceleration_max = 3
@@ -150,8 +150,13 @@ class MPC_robot_model:
         to_return = np.array([result.x[0], result.x[self.HORIZON_N]])
         self.previous_good_state = to_return
 
+        reshaped_state = [None] * self.HORIZON_N
+        for i in range(self.HORIZON_N):
+            reshaped_state[i] = (result.x[i], result.x[self.HORIZON_N + i])
 
-        return to_return
+
+
+        return to_return, reshaped_state
 
     def acquire_path(self, path):
         """Setter for the path

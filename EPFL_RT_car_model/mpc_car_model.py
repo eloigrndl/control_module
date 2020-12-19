@@ -8,7 +8,7 @@ import random
 class MPC_car_model:
     
     # PARAMETERS FOR THE MPC MODEL
-    HORIZON_N = 5
+    HORIZON_N = 10
     break_max = -4
     acceleration_max = 4
     steering_angle_max = mt.pi/3
@@ -20,8 +20,8 @@ class MPC_car_model:
     q_Rs = 0.0 # WE DO NOT CARE OF THE VALUE ITSELF BUT OF THE DERIVATIVE FOR THE SMOOTHNESS OF THE DRIVE
     
     # ERROR REFERENCE 
-    max_err_Y = 0.5 **2
-    max_err_X = 0.5 ** 2
+    max_err_Y = 2 ** 2
+    max_err_X = 2 ** 2
     max_incr_D = 0.6
     max_incr_steer = mt.pi/4
 
@@ -178,7 +178,12 @@ class MPC_car_model:
         self.previous_states = np.array(result.x).reshape((self.HORIZON_N,2))
         to_return = np.array([result.x[0], result.x[self.HORIZON_N]])
         self.previous_good_state = to_return
-        return to_return
+
+        reshaped_state = [None] * self.HORIZON_N
+        for i in range(self.HORIZON_N):
+            reshaped_state[i] = (result.x[i], result.x[self.HORIZON_N + i])
+
+        return to_return, reshaped_state
 
     def acquire_path(self, path):
         """Setter for the path
@@ -187,7 +192,7 @@ class MPC_car_model:
             path (list): list of 2D points
         """
         self.path = path
-        self.path_idx = 0
+        self.last_closest_point = 0
 
     def set_state(self, x0):
         """Setter for the current state of the car
@@ -197,38 +202,30 @@ class MPC_car_model:
         """
         self.x0 = x0
 
-
     def shift_path(self):
         """When the MPC is run once, we shift the path assuming that the car will be reach next point of the path
         """
 
         closest_idx = 0
         distance = self.calc_distance(self.path[0], self.x0)
-        for i in range(len(self.path)):
+        for i in range(self.last_closest_point, self.HORIZON_N):
             point = self.path[i]
             current = self.calc_distance(point, self.x0)
             if(current < distance):
                 distance = current
                 closest_idx = i
-
-        print("CLOSEST INDEX FIND IS :", closest_idx)
-
-        # last = self.path[len(self.path) - 1]
-        # for i in range(len(self.path) - 1):
-        #     if i + closest_idx > len(self.path) - 1:
-        #         self.path[i] = last
-        #     else:
-        #         self.path[i] = self.path[i + closest_idx]
-
-        # self.path[len(self.path) - 1] = last
-
+        
+        self.last_closest_point = closest_idx 
+        last = self.path[len(self.path) - 1]
         for i in range(len(self.path) - 1):
-            self.path[i] = self.path[i+1]
+            
+            if i + closest_idx > len(self.path) - 1:
+                self.path[i] = last
+            else: 
+                self.path[i] = self.path[i + closest_idx]
+                
+        self.path[len(self.path) - 1] = last
 
-    def add_point(self, point):
-        """Method to add a point to the path
-        """
-        path.append(point)
         
     def calc_distance(self, next, curr):
         """Computes the distance between two points

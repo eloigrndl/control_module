@@ -20,5 +20,5 @@ Note 19/12/2020 :
 - might add more path to test larger beahviors
 
 Note 4/1/2021 :
-- visualization too updated
+- visualization tool updated
 - first draft report added

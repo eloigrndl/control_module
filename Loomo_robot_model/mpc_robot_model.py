@@ -8,7 +8,7 @@ import random
 class MPC_robot_model:
     
     # PARAMETERS FOR THE MPC MODEL
-    HORIZON_N = 5
+    HORIZON_N = 7
     #values corresponds to the specifications
     break_max = -3
     acceleration_max = 3

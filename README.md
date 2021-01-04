@@ -14,7 +14,11 @@ Note 17/12/2020 :
 - visualization tool isn't done yet, plan to display more information to screen
 - car model still needs small adjustement (but the real value that will be used on the RT car will be calculated using IRL tests)
 
-Note 19/12/2020
+Note 19/12/2020 :
 - visualization tool updated
 - car model updated
 - might add more path to test larger beahviors
+
+Note 4/1/2021 :
+- visualization too updated
+- first draft report added

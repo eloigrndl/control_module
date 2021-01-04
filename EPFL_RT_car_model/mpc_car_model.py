@@ -20,8 +20,8 @@ class MPC_car_model:
     q_Rs = 0.0 # WE DO NOT CARE OF THE VALUE ITSELF BUT OF THE DERIVATIVE FOR THE SMOOTHNESS OF THE DRIVE
     
     # ERROR REFERENCE 
-    max_err_Y = 2 ** 2
-    max_err_X = 2 ** 2
+    max_err_Y = 1.5 ** 2
+    max_err_X = 1.5 ** 2
     max_incr_D = 0.6
     max_incr_steer = mt.pi/4
 

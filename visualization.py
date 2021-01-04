@@ -7,13 +7,16 @@ from Loomo_robot_model.mpc_robot_model import MPC_robot_model
 import Tools.utils as utils
 import time
 
-def display_figure(points, position, predicted_pos, bounds):
+def display_figure(previous_pos, points, position, predicted_pos, bounds):
 
     # Clear figure
     plt.clf()
 
     # Display track, start and end
     x_y = list(zip(*points))
+    pos_x_y = list(zip(*previous_pos))
+    plt.plot(pos_x_y[0], pos_x_y[1], zorder=31, label="Pos")
+
 
     #Display path as points
     #plt.scatter(x_y[0], x_y[1], zorder=1, label="Track")
@@ -49,24 +52,33 @@ def plot_MPC(mpc_module, x0, points, bounds):
 
     #initialze records if wanted to be printed at the end of the algo.
     current_state = x0
-    states = list(x0)
+    states = [x0]
     u_vectors = [[0, 0]]
     dU_vectors = [[0, 0]]
+    previous_pos = [current_pos]
     distance = mpc_module.calc_distance(final_pos, current_pos)
     mpc_module.set_state(current_state)
+
+    mean_time = 0
+    i = 0
 
 
     #running it final goal is reached
     while(distance > 0.3):
 
         # Run the MPC to get next vectors
+        start_time = time.time()
         new_u, predicted_U = mpc_module.run_MPC()
+        mean_time = time.time() - start_time
+        i += 1
+
         head = u_vectors[len(u_vectors) - 1]
         new_dU = [x - y for x,y in zip(new_u, head)]
         
         #Update current values
         current_state = mpc_module.f_next_state(current_state, new_u, new_dU)
         current_pos = (current_state[0], current_state[1])
+        previous_pos.append(current_pos)
 
         mpc_module.set_state(current_state)
         mpc_module.shift_path()
@@ -85,8 +97,7 @@ def plot_MPC(mpc_module, x0, points, bounds):
             predicted_pos[i + 1] = (predicted_states[i + 1][0], predicted_states[i + 1][1])
 
         # Display the next position and predicted states
-        display_figure(points, current_pos, predicted_states, bounds)
-
+        display_figure(previous_pos, points, current_pos, predicted_states, bounds)
 
         #Update records
         u_vectors.append(new_u)
@@ -107,7 +118,8 @@ def plot_MPC(mpc_module, x0, points, bounds):
     #print("States : ",states)
     #print("U_vectors : ", u_vectors)
     #print("dU_vectors : ", dU_vectors)
-    input("End point reached : press any key to terminate program ")
+    #print("Mean time per iteration is : ", mean_time/i)
+    input("End point reached : press any key to terminate program \n")
 
 def main():
 

@@ -1,5 +1,5 @@
 # PDS
-Bachelor Semester Project Git repository, EPFL 2020-2021
+Eloi Garandel, Bachelor Semester Project Git repository, EPFL 2020-2021
 
 The project consists in the implementation of a control algorithm. We first implement it for a Loomo robot (2-wheel robot)
 and then this algorithm should be adapted to be use as the control alogorithm of the Driverless car of the EPFL Racing Team.
@@ -20,5 +20,5 @@ Note 19/12/2020 :
 - might add more path to test larger beahviors
 
 Note 4/1/2021 :
-- visualization too updated
+- visualization tool updated
 - first draft report added

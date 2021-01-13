@@ -1,4 +1,4 @@
-# PDS
+# Semester project
 Eloi Garandel, Bachelor Semester Project Git repository, EPFL 2020-2021
 
 The project consists of implementating a control algorithm. I first implement it for a Loomo robot (2-wheel robot)

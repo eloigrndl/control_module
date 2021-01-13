@@ -1,10 +1,10 @@
 # PDS
 Eloi Garandel, Bachelor Semester Project Git repository, EPFL 2020-2021
 
-The project consists in the implementation of a control algorithm. We first implement it for a Loomo robot (2-wheel robot)
+The project consists of implementating a control algorithm. I first implement it for a Loomo robot (2-wheel robot)
 and then this algorithm should be adapted to be use as the control alogorithm of the Driverless car of the EPFL Racing Team.
 
-Source files are separated in two folders, one implementing each model. They are quite similar as the overall structure of each is the same but the kinematic/dynamic equations change for each model.
+Source files are separated in two folders, one implementing each model. They are quite similar as the overall structure of each is the same but the motion equations change for each model.
 
 I also provided a visualization tool that simulates each of the model on the given model.
 To launch it, run visualization.py (using Python 3.9)
@@ -22,3 +22,6 @@ Note 19/12/2020 :
 Note 4/1/2021 :
 - visualization tool updated
 - first draft report added
+
+Note 5/1/2021 :
+- final report 
